@@ -59,7 +59,7 @@ def __judge_gxx(submission: Submission, compiler, ext):
     sp.run(['del', '{}{}.{}'.format(CODES_DIR, filename, ext)], shell=True)
 
     def delete_file():
-        sp.run(['del', '{}{}'.format(CODES_DIR, filename)], shell=True)
+        sp.run(['del', '{}{}.{}'.format(CODES_DIR, filename, 'exe')], shell=True)
     
     if(x.returncode != 0):
         return {'verdict': 'CE', 'time': 0}
@@ -75,15 +75,15 @@ def __judge_gxx(submission: Submission, compiler, ext):
         
         runtime = time() - start 
 
-        if cp.returncode != 0:
-            # delete_file()
+        if x.returncode != 0:
+            delete_file()
             return {'verdict': 'RE', 'time': runtime}
 
         useroutput = x.stdout.decode().strip().rstrip("\n").strip()
         if useroutput != tc.output:
-            # delete_file()
+            delete_file()
             return {'verdict': 'WA', 'time': runtime}
     
     
-    # delete_file()
+    delete_file()
     return {'verdict': 'AC', 'time': runtime}
