@@ -23,7 +23,7 @@ def judge_python(submission: Submission):
             delete_file()
             return {'verdict':'TLE', 'time': (time()-start)*1000}
 
-        runtime = time() - start 
+        runtime = (time() - start )*1000
         if  x.returncode != 0:
             delete_file()
             print(x.stderr.decode())
@@ -64,7 +64,6 @@ def __judge_gxx(submission: Submission, compiler, ext):
     if(x.returncode != 0):
         return {'verdict': 'CE', 'time': 0}
 
-    maxtime = 0.0
     for tc in submission.problem.testcase_set.all():
         start = time()
         try:
@@ -73,7 +72,7 @@ def __judge_gxx(submission: Submission, compiler, ext):
             delete_file()
             return {'verdict': 'TLE', 'time': (time() - start) * 1000}
         
-        runtime = time() - start 
+        runtime = (time() - start )*1000
 
         if x.returncode != 0:
             delete_file()

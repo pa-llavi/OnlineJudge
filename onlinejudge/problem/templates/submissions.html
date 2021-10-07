@@ -9,41 +9,46 @@
   <table style="table-layout: auto; width: 100%;">
 
     <tr>
-      <th style="background-color: #afc1d5;">Submission_No.</th>
+      <th style="background-color: #afc1d5;">Submission ID</th>
       <th style="background-color: #afc1d5;">Problem</th>
       <th style="background-color: #afc1d5;">Language</th>
-      <th style="background-color: #afc1d5;">Result</th>
-      <th style="background-color: #afc1d5;">Run_time</th>
-      <th style="background-color: #afc1d5;">Submitted_At</th>
+      <th style="background-color: #afc1d5;">Status</th>
+      <th style="background-color: #afc1d5;">Runtime</th>
+      <th style="background-color: #afc1d5;">Time Submitted</th>
     </tr>
 
     {% for sub in submissions reversed %}
 
       <tr>
         <td>{{ sub.id }}</td>
-        <td><a class="mr-2" href="{% url 'problem' sub.problem.id %}" style="text-decoration: none;">{{ sub.problem.id }}. {{  sub.problem.title }}</a></td>
+        <td><a class="mr-2" href="{% url 'problem' sub.problem.id %}" style="text-decoration: none; color: black;">{{ sub.problem.id }}. {{  sub.problem.title }}</a></td>
         <td>{{ sub.lang }}</td>
-        <td> 
+        <td><b>  
           {% if sub.verdict == 'AC' %}
-            <p style="color: green; margin: 0;">accepted</p>
+            <p style="color: green; margin: 0;">Accepted</p>
           {% elif sub.verdict == 'TT' %}
-            <p style="color: grey; margin: 0;">testing...</p>
+            <p style="color: grey; margin: 0;">Testing...</p>
           {% else %}
             <p style="color: red; margin: 0;">
               {% if sub.verdict == 'WA' %}
-                wrong answer
+                Wrong Answer
               {% elif sub.verdict == 'TLE' %}
-                time limit exceeded
+                Time Limit Exceeded
               {% elif sub.verdict == 'CE' %}
-                compile error
+                Compile Error
               {% elif sub.verdict == 'RE' %}
-                runtime error
-              {% endif %}
+                Runtime Error
+              {% endif %}</b>
             </p>
           {% endif %}  
         </td>
         <td> {{ sub.time }} ms </td>
-        <td> {{ sub.submitted_at }} </td> <!-- nood to change format -->
+        <td> {% with date=sub.submitted_at %}
+          
+            {{ sub.submitted_at|date:'Y-m-d H:i:s' }}
+          
+          {% endwith %} 
+        </td> 
       </tr>
 
     {% endfor %}

@@ -9,7 +9,7 @@
 
   <section class="media content-section" style="margin: 0;">
     <div class="media-body">
-      <a class="mr-2" href="{% url 'problem' problem.id %}" style="text-decoration: none;">{{ problem.id }}. {{  problem.title }}</a>
+      <a class="mr-2" href="{% url 'problem' problem.id %}" style="text-decoration: none; color: black;">{{ problem.id }}. {{  problem.title }}</a>
       {% if problem.difficulty == 'E' %}
         <p class="article-content" style="float: right; color: green">EASY</p>
       {% elif problem.difficulty == 'M' %}
